@@ -1,0 +1,558 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anne Mwangi | Business Intelligence Analyst</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --dg: #1B4D3E;
+            --g: #C9A961;
+            --c: #F5E6D3;
+            --lg: #7A9D8F
+        }
+
+        body {
+            font-family: 'Segoe UI',sans-serif;
+            background: var(--dg);
+            color: var(--c);
+            overflow-x: hidden
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: .15
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(27,77,62,.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201,169,97,.3)
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--g);
+            box-shadow: 0 4px 15px rgba(201,169,97,.4);
+            background: var(--dg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--c);
+            font-weight: 300
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none
+        }
+
+            .nav-links a {
+                color: var(--c);
+                text-decoration: none;
+                font-size: .95rem;
+                letter-spacing: .15rem;
+                text-transform: uppercase;
+                transition: .3s;
+                font-weight: 300
+            }
+
+                .nav-links a:hover {
+                    color: var(--g)
+                }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            z-index: 1
+        }
+
+            .hero h1 {
+                font-size: 5rem;
+                font-weight: 200;
+                letter-spacing: 1rem;
+                margin-bottom: 1rem;
+                color: var(--c);
+                animation: fadeInUp 1s ease
+            }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            letter-spacing: .3rem;
+            color: var(--g);
+            margin-bottom: .5rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease .2s backwards
+        }
+
+        .hero-line {
+            width: 300px;
+            height: 1px;
+            background: var(--g);
+            margin: 2rem auto;
+            animation: expandWidth 1s ease .5s backwards
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            font-size: 2rem;
+            color: var(--g);
+            animation: bounce 2s infinite
+        }
+
+        section {
+            position: relative;
+            padding: 8rem 5%;
+            z-index: 1
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 200;
+            letter-spacing: .5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--c);
+            text-transform: uppercase
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .about-intro {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            margin-bottom: 4rem;
+            font-weight: 300
+        }
+
+        .value-props {
+            display: grid;
+            gap: 3rem;
+            text-align: left
+        }
+
+        .value-prop {
+            background: rgba(122,157,143,.15);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(201,169,97,.3);
+            transition: .3s
+        }
+
+            .value-prop:hover {
+                background: rgba(122,157,143,.25);
+                border-color: var(--g);
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(201,169,97,.2)
+            }
+
+            .value-prop h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: var(--g);
+                font-weight: 400
+            }
+
+            .value-prop p {
+                line-height: 1.8
+            }
+
+        .aspirations {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201,169,97,.3)
+        }
+
+            .aspirations h4 {
+                font-size: 1.2rem;
+                color: var(--g);
+                margin-bottom: 1.5rem;
+                letter-spacing: .1rem;
+                font-weight: 400
+            }
+
+        .aspirations-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center
+        }
+
+        .aspiration-tag {
+            background: rgba(201,169,97,.2);
+            color: var(--c);
+            padding: .7rem 1.5rem;
+            border-radius: 50px;
+            font-size: .9rem;
+            border: 1px solid rgba(201,169,97,.4)
+        }
+
+        .tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem
+        }
+
+        .tag {
+            background: var(--g);
+            color: var(--dg);
+            padding: .8rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: .95rem
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        .service-card {
+            background: rgba(122,157,143,.15);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(201,169,97,.3);
+            transition: .3s
+        }
+
+            .service-card:hover {
+                background: rgba(122,157,143,.25);
+                transform: translateY(-10px);
+                border-color: var(--g);
+                box-shadow: 0 15px 40px rgba(201,169,97,.2)
+            }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            letter-spacing: .1rem;
+            color: var(--c);
+            line-height: 1.6;
+            font-weight: 400
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        .skill-item {
+            text-align: center;
+            transition: .3s
+        }
+
+            .skill-item:hover {
+                transform: translateY(-10px)
+            }
+
+        .skill-circle {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg,rgba(122,157,143,.3),rgba(201,169,97,.3));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border: 2px solid rgba(201,169,97,.5);
+            box-shadow: 0 8px 25px rgba(201,169,97,.2);
+            transition: .3s
+        }
+
+        .skill-item:hover .skill-circle {
+            box-shadow: 0 12px 35px rgba(201,169,97,.4);
+            border-color: var(--g)
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px
+        }
+
+        .skill-name {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: .05rem;
+            line-height: 1.5
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto
+        }
+
+        .work-card {
+            background: rgba(122,157,143,.15);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(201,169,97,.3);
+            transition: .3s;
+            cursor: pointer
+        }
+
+            .work-card:hover {
+                transform: translateY(-10px);
+                border-color: var(--g);
+                box-shadow: 0 20px 40px rgba(0,0,0,.3)
+            }
+
+        .work-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg,var(--dg),var(--lg));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--c)
+        }
+
+        .work-content {
+            padding: 2rem
+        }
+
+        .work-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--c);
+            letter-spacing: .1rem;
+            font-weight: 400
+        }
+
+        .work-stats {
+            display: flex;
+            gap: 2rem;
+            color: var(--g);
+            font-size: .9rem
+        }
+
+        .education-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem
+        }
+
+        .college-name {
+            font-size: 2rem;
+            color: var(--c);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: .2rem
+        }
+
+        .courses-list {
+            text-align: left;
+            line-height: 2.5
+        }
+
+            .courses-list li {
+                list-style: none;
+                padding-left: 1.5rem;
+                position: relative
+            }
+
+                .courses-list li:before {
+                    content: "→";
+                    position: absolute;
+                    left: 0;
+                    color: var(--g)
+                }
+
+        .graduation-year {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: var(--g);
+            font-weight: 500
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .contact-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 3rem
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem
+        }
+
+        .contact-link {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(122,157,143,.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(201,169,97,.4);
+            transition: .3s;
+            color: var(--g);
+            text-decoration: none;
+            font-size: 2rem
+        }
+
+            .contact-link:hover {
+                background: var(--g);
+                border-color: var(--g);
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(201,169,97,.3);
+                color: var(--dg)
+            }
+
+        .resume-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: rgba(201,169,97,.2);
+            color: var(--c);
+            text-decoration: none;
+            border: 2px solid var(--g);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            letter-spacing: .2rem;
+            transition: .3s;
+            text-transform: uppercase;
+            font-weight: 500
+        }
+
+            .resume-btn:hover {
+                background: var(--g);
+                color: var(--dg);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(201,169,97,.3)
+            }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 300px
+            }
+        }
+
+        @keyframes bounce {
+            0%,100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-20px)
+            }
+        }
+
+        @media(max-width:768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: .5rem
+            }
+
+            .section-title {
+                font-size: 2rem
+            }
+
+            .education-content, .work-grid, .services-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <nav><div class="logo">AM</div><ul class="nav-links"><li><a href="#services">SERVICES</a></li><li><a href="#skills">SKILLS</a></li><li><a href="#work">WORK</a></li><li><a href="#contact">CONTACT</a></li></ul></nav>
+    <section class="hero"><h1>ANNE MWANGI</h1><div class="hero-line"></div><p class="hero-subtitle">BUSINESS INTELLIGENCE ANALYST</p><p class="hero-subtitle">ECONOMICS BACKGROUND</p><div class="scroll-indicator">↓</div></section>
+    <section id="about"><h2 class="section-title">ABOUT ME</h2><div class="about-content"><p class="about-intro">I help organizations turn data into actionable insights that drive measurable results.</p><div class="value-props"><div class="value-prop"><h3>Businesses</h3><p>Achieve higher revenue, reduced costs, better customer understanding, optimized operations, and clearer forecasting without increasing marketing spend, over-hiring, or slowing down processes.</p></div><div class="value-prop"><h3>Financial Institutions</h3><p>Achieve better risk management, stronger investment decisions, improved compliance, optimized portfolios, and smarter lending without unnecessary exposure, regulatory penalties, or relying on outdated, manual reporting.</p></div><div class="value-prop"><h3>Nonprofits & NGOs</h3><p>Achieve greater mission impact, efficient use of funding, evidence-backed reporting, better targeting of communities, and stronger grant proposals without wasting limited resources, misallocating budgets, or making decisions blindly.</p></div></div><div class="aspirations"><h4>Aspiring Roles</h4><div class="aspirations-list"><span class="aspiration-tag">Development Analyst</span><span class="aspiration-tag">Portfolio Analyst</span><span class="aspiration-tag">Trading Operations Analyst</span><span class="aspiration-tag">Investment Analyst</span></div></div><div class="tags"><span class="tag">Data Analyst</span><span class="tag"> Business Analyst</span><span class="tag">Market Analyst</span></div></div></section>
+    <section id="services"><h2 class="section-title">SERVICES</h2><div class="services-grid"><div class="service-card"><svg class="service-icon" viewBox="0 0 200 200" fill="none"><circle cx="60" cy="100" r="45" stroke="#C9A961" stroke-width="3" /><rect x="40" y="120" width="10" height="50" fill="#7A9D8F" /><rect x="55" y="100" width="10" height="70" fill="#7A9D8F" /><rect x="70" y="110" width="10" height="60" fill="#7A9D8F" /><rect x="85" y="90" width="10" height="80" fill="#7A9D8F" /><line x1="55" y1="100" x2="90" y2="70" stroke="#C9A961" stroke-width="2" /></svg><h3>DATA ANALYSIS AND INSIGHTS</h3></div><div class="service-card"><svg class="service-icon" viewBox="0 0 200 200" fill="none"><rect x="30" y="40" width="140" height="100" rx="8" fill="#1B4D3E" stroke="#C9A961" stroke-width="3" /><rect x="40" y="50" width="30" height="30" rx="3" fill="#7A9D8F" /><line x1="80" y1="60" x2="150" y2="60" stroke="#C9A961" stroke-width="2" /><line x1="80" y1="70" x2="120" y2="70" stroke="#C9A961" stroke-width="2" /><circle cx="55" cy="110" r="20" fill="none" stroke="#C9A961" stroke-width="2" /><line x1="55" y1="95" x2="55" y2="110" stroke="#C9A961" stroke-width="2" /><line x1="55" y1="110" x2="65" y2="120" stroke="#C9A961" stroke-width="2" /><rect x="100" y="100" width="15" height="25" fill="#C9A961" /><rect x="120" y="90" width="15" height="35" fill="#C9A961" /><rect x="140" y="105" width="15" height="20" fill="#C9A961" /><line x1="30" y1="145" x2="170" y2="145" stroke="#C9A961" stroke-width="4" /></svg><h3>REPORTING AND DASHBOARD DEVELOPMENT</h3></div><div class="service-card"><svg class="service-icon" viewBox="0 0 200 200" fill="none"><line x1="30" y1="150" x2="170" y2="150" stroke="#C9A961" stroke-width="2" /><line x1="30" y1="150" x2="30" y2="50" stroke="#C9A961" stroke-width="2" /><rect x="40" y="130" width="15" height="20" fill="#7A9D8F" /><rect x="65" y="120" width="15" height="30" fill="#7A9D8F" /><rect x="90" y="110" width="15" height="40" fill="#7A9D8F" /><rect x="115" y="95" width="15" height="55" fill="#7A9D8F" /><polyline points="47,125 72,115 97,105 122,85" fill="none" stroke="#C9A961" stroke-width="3" /><line x1="122" y1="85" x2="150" y2="60" stroke="#C9A961" stroke-width="3" stroke-dasharray="5,5" /><polygon points="145,55 150,60 155,55 150,50" fill="#C9A961" /></svg><h3>FORECASTING AND PREDICTIVE ANALYTICS</h3></div></div></section>
+    <section id="skills"><h2 class="section-title">SKILLS</h2><div class="skills-grid"><div class="skill-item"><div class="skill-circle"><svg class="skill-icon" viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="30" rx="30" ry="8" fill="#7A9D8F" stroke="#C9A961" stroke-width="2" /><line x1="20" y1="30" x2="20" y2="70" stroke="#C9A961" stroke-width="2" /><line x1="80" y1="30" x2="80" y2="70" stroke="#C9A961" stroke-width="2" /><ellipse cx="50" cy="50" rx="30" ry="8" fill="none" stroke="#C9A961" stroke-width="2" /><ellipse cx="50" cy="70" rx="30" ry="8" fill="#7A9D8F" stroke="#C9A961" stroke-width="2" /></svg></div><div class="skill-name">Data Management and Database Skills</div></div><div class="skill-item"><div class="skill-circle"><svg class="skill-icon" viewBox="0 0 100 100" fill="none"><rect x="15" y="60" width="12" height="30" fill="#C9A961" /><rect x="32" y="45" width="12" height="45" fill="#C9A961" /><rect x="49" y="55" width="12" height="35" fill="#C9A961" /><rect x="66" y="35" width="12" height="55" fill="#C9A961" /><polyline points="21,60 38,45 55,55 72,35" fill="none" stroke="#F5E6D3" stroke-width="2" /></svg></div><div class="skill-name">Data Analysis and Statistical Skills</div></div><div class="skill-item"><div class="skill-circle"><svg class="skill-icon" viewBox="0 0 100 100" fill="none"><rect x="10" y="10" width="80" height="60" rx="4" fill="none" stroke="#C9A961" stroke-width="2" /><rect x="15" y="15" width="20" height="20" rx="2" fill="#7A9D8F" /><line x1="40" y1="20" x2="80" y2="20" stroke="#C9A961" /><line x1="40" y1="30" x2="65" y2="30" stroke="#C9A961" /><circle cx="25" cy="55" r="10" fill="none" stroke="#C9A961" /><rect x="50" y="48" width="8" height="15" fill="#C9A961" /><rect x="62" y="43" width="8" height="20" fill="#C9A961" /><rect x="74" y="50" width="8" height="13" fill="#C9A961" /><line x1="10" y1="75" x2="90" y2="75" stroke="#C9A961" stroke-width="3" /></svg></div><div class="skill-name">Business Intelligence Tools</div></div><div class="skill-item"><div class="skill-circle"><svg class="skill-icon" viewBox="0 0 100 100" fill="none"><line x1="10" y1="80" x2="90" y2="80" stroke="#C9A961" /><line x1="10" y1="80" x2="10" y2="20" stroke="#C9A961" /><polyline points="15,70 30,60 45,55 60,40 75,30" fill="none" stroke="#7A9D8F" stroke-width="2" /><line x1="75" y1="30" x2="85" y2="20" stroke="#C9A961" stroke-width="2" stroke-dasharray="3,3" /><polygon points="82,18 85,20 88,18 85,15" fill="#C9A961" /><circle cx="15" cy="70" r="3" fill="#C9A961" /><circle cx="30" cy="60" r="3" fill="#C9A961" /><circle cx="45" cy="55" r="3" fill="#C9A961" /><circle cx="60" cy="40" r="3" fill="#C9A961" /><circle cx="75" cy="30" r="3" fill="#C9A961" /></svg></div><div class="skill-name">Analytics and Predictive Modelling</div></div><div class="skill-item"><div class="skill-circle"><svg class="skill-icon" viewBox="0 0 100 100" fill="none"><rect x="15" y="45" width="10" height="35" fill="#C9A961" /><rect x="30" y="35" width="10" height="45" fill="#C9A961" /><rect x="45" y="50" width="10" height="30" fill="#7A9D8F" /><rect x="60" y="40" width="10" height="40" fill="#7A9D8F" /><rect x="75" y="30" width="10" height="50" fill="#7A9D8F" /></svg></div><div class="skill-name">Data Visualization and Communication</div></div></div></section>
+    <section id="work"><h2 class="section-title">WORK</h2><div class="work-grid"><div class="work-card"><div class="work-image">📊</div><div class="work-content"><h3 class="work-title">KENYA VOTING ANALYSIS</h3><div class="work-stats"><span>⭐ 01</span><span>👁 120</span></div></div></div><div class="work-card"><div class="work-image">🏥</div><div class="work-content"><h3 class="work-title">DIABETES PREDICTION</h3><div class="work-stats"><span>⭐ 01</span><span>👁 120</span></div></div></div><div class="work-card"><div class="work-image">✈️</div><div class="work-content"><h3 class="work-title">AIR TRANSPORTATION</h3><div class="work-stats"><span>⭐ 01</span><span>👁 120</span></div></div></div><div class="work-card"><div class="work-image">💹</div><div class="work-content"><h3 class="work-title">ECONOMIC INDICATORS</h3><div class="work-stats"><span>⭐ 01</span><span>👁 120</span></div></div></div><div class="work-card"><div class="work-image">🩺</div><div class="work-content"><h3 class="work-title">PERIOD POVERTY</h3><div class="work-stats"><span>⭐ 01</span><span>👁 120</span></div></div></div><div class="work-card"><div class="work-image">💰</div><div class="work-content"><h3 class="work-title">FINANCIAL MARKET ANALYSIS</h3><div class="work-stats"><span>⭐ 01</span><span>👁 120</span></div></div></div></div></section>
+    <section id="education"><h2 class="section-title">EDUCATION</h2><div class="education-content"><div style="text-align:center"><h3 class="college-name">NSCC IT CAMPUS</h3><ul class="courses-list"><li>Business Intelligence</li><li>SQL</li><li>Python</li><li>Database Design</li><li>Business Analysis</li><li>Data Science</li><li>Data Provisioning with ETL</li><li>Data Reporting</li></ul><p class="graduation-year">Graduating 2026</p></div><div style="text-align:center"><h3 style="font-size:2rem;color:var(--c);margin-bottom:2rem;letter-spacing:.2rem;text-align:left">EXPERIENCE</h3><p style="font-size:1.2rem;line-height:2">Currently working on open projects and available for opportunities in Business Intelligence, Data Analysis, and Consulting.</p></div></div></section>
+    <section id="contact"><h2 class="section-title">CONTACT</h2><div class="contact-content"><p class="contact-text">Let's connect and transform data into insights that drive real results.</p><div class="contact-links"><a href="mailto:annewambairemwangi@gmail.com" class="contact-link">✉</a><a href="https://www.linkedin.com/in/anne-wambaire" target="_blank" class="contact-link">in</a><a href="https://github.com/Anne-Mwangi" target="_blank" class="contact-link">gh</a></div><a href="#" class="resume-btn">PDF RESUME</a></div></section>
+    <script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');cv.width=innerWidth;cv.height=innerHeight;const nodes=[],cnt=80,dist=150;
+class Node{constructor(){this.x=Math.random()*cv.width;this.y=Math.random()*cv.height;this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5}
+update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>cv.width)this.vx*=-1;if(this.y<0||this.y>cv.height)this.vy*=-1}
+draw(){ctx.beginPath();ctx.arc(this.x,this.y,2,0,Math.PI*2);ctx.fillStyle='rgba(201,169,97,0.5)';ctx.fill()}}
+for(let i=0;i<cnt;i++)nodes.push(new Node());
+function animate(){ctx.clearRect(0,0,cv.width,cv.height);nodes.forEach(n=>{n.update();n.draw()});
+for(let i=0;i<nodes.length;i++){for(let j=i+1;j<nodes.length;j++){const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
+const d=Math.sqrt(dx*dx+dy*dy);if(d<dist){ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);
+ctx.strokeStyle=`rgba(201,169,97,${0.2*(1-d/dist)})`;ctx.lineWidth=.5;ctx.stroke()}}}
+requestAnimationFrame(animate)}
+animate();addEventListener('resize',()=>{cv.width=innerWidth;cv.height=innerHeight});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+    </script>
+</body>
+</html>
